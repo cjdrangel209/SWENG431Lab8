@@ -22,6 +22,10 @@ class MyJavap {
         //cd.printSkeleton(c);
     }
     
+    public Class getMJPClass(){
+        return c;
+    }
+    
     /**
      * Prints name of class object.
      *  Form: modifier class className;
@@ -80,64 +84,23 @@ class MyJavap {
      *  Form: modifier returnType methodName(type t1, type t2);
      * @param c - class object
      */
-    public void printMethods() {
+    public String[] printMethods() {
 
         Method[] methods = c.getDeclaredMethods();
-
+  
+        int i = 0;
         for(Method m: methods){
-
-            System.out.print(" ");
-
-            String modifier = Modifier.toString(m.getModifiers());
-            System.out.print(modifier);
-            System.out.print(" ");
-
-            String returnType = m.getReturnType().getName();
-            System.out.print(returnType);
-            System.out.print(" ");
-
-            String methodName = m.getName();
-            System.out.print(methodName);
-
-            // prints parameters
-            System.out.print("(");
-            Class[] parameterTypes = m.getParameterTypes();
-
-            ArrayList<String> parameterTypeCounter = new ArrayList<>();
-
-            for(int i = 0; i < parameterTypes.length; i++){
-
-                // prints parameter type
-                String pTypeName = parameterTypes[i].getSimpleName();
-                System.out.print(pTypeName);
-                System.out.print(" ");
-
-                // gets number for generic parameter name
-                parameterTypeCounter.add(pTypeName);
-                int frequency = Collections.frequency(parameterTypeCounter, pTypeName);
-
-                // prints generic parameter name
-                String pName = pTypeName.charAt(0) + String.valueOf(frequency);
-                System.out.print(pName);
-
-                // handles commas
-                if(i != parameterTypes.length - 1)
-                {
-                    System.out.print(", ");
-                }
-            }
-
-            System.out.print(")");
-
-            AnnotatedType[] aa = m.getAnnotatedExceptionTypes();
-            for(AnnotatedType a : aa){
-                String e = a.getType().toString();
-                int i = e.lastIndexOf('.');
-                String ex = e.substring(i + 1);
-                System.out.print(" throws " + ex);
-            }
-            System.out.println(";");
+            i++;
         }
+        
+        int j = 0;
+        String[] sa = new String[i];
+        for (Method m: methods){
+            sa[j] = m.toGenericString();
+            j++;
+        }
+        
+        return sa;
     }
     
     public String[] printConstructors(){
@@ -158,5 +121,35 @@ class MyJavap {
         }
     
         return sa;
+    }
+    
+    public Constructor getConstructor(int i){
+        Constructor[] cons = c.getConstructors();
+        Constructor constructor = null;
+        
+        int j = 0;
+        for(Constructor con: cons){
+            if (j == i){
+                constructor = con;
+            }
+            j++;
+        }
+        
+        return constructor;
+    }
+    
+    public Method getMethod(int i){
+        Method[] methods = c.getMethods();
+        Method method = null;
+        
+        int j = 0;
+        for(Method m: methods){
+            if(j == i){
+                method = m;
+            }
+            j++;
+        }
+        
+        return method;
     }
 }
