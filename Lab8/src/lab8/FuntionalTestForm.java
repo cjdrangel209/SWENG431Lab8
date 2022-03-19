@@ -20,12 +20,22 @@ public class FuntionalTestForm extends javax.swing.JFrame {
     public String value;
     MyJavap mjp = new MyJavap();
     Object object;
+    Constructor con;
+    Object[] oa = null;
+    Class[] ca = null;
+    int a = 0;
+    
     /**
      * Creates new form FuntionalTestForm
      */
     
     public FuntionalTestForm() {
         initComponents();
+        
+        jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
+        jTextField2.setVisible(false);
+        jButton3.setVisible(false);
     }
 
     /**
@@ -49,6 +59,10 @@ public class FuntionalTestForm extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,36 +107,60 @@ public class FuntionalTestForm extends javax.swing.JFrame {
 
         jScrollPane5.setViewportView(jList2);
 
+        jLabel4.setText("Enter ");
+
+        jButton3.setText("OK");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 300, Short.MAX_VALUE))
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton2)
+                        .addContainerGap(156, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane5)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane5))))
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addGap(78, 78, 78)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(jButton3)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -143,8 +181,14 @@ public class FuntionalTestForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                     .addComponent(jScrollPane4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,24 +215,47 @@ public class FuntionalTestForm extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         int i = jList1.getSelectedIndex();
-        Constructor con = mjp.getConstructor(i);                
+        con = mjp.getConstructor(i);                
         
-        Class[] ca = con.getParameterTypes();
+        ca = con.getParameterTypes();
         
         int j = con.getParameterCount();
         
-        Object[] oa = new Object[j];
-      
+             
+        jLabel4.setVisible(true);
+        jLabel5.setVisible(true);
+        jLabel5.setText(ca[a].getSimpleName());
+        jTextField2.setVisible(true);
+        jButton3.setVisible(true);
+        
+        oa = new Object[j];
+        /*
         int k = 0;            
         for(Class c: ca){
-           
+            
+            /*
             ConstructorFieldsForm cff = new ConstructorFieldsForm(c.getSimpleName(), this);
             cff.setVisible(true);
-
+            
+              
+            jLabel5.setText(c.getSimpleName());
+           
+            
+                      
             String val = value;
             oa[k] = c.cast(val);
             k++;
+            
         }        
+        /* 
+        try {
+                this.wait();
+            } catch (InterruptedException ex) {
+                System.out.println("Interrupted Exception");
+            }
+        
+        
+       
         
         Class c1 = mjp.getMJPClass();
         try{
@@ -197,10 +264,16 @@ public class FuntionalTestForm extends javax.swing.JFrame {
         catch(IllegalArgumentException e){
             System.out.println("This is the problem.");
         }
-        catch(Exception e){
-            System.out.println(e);
+        catch(IllegalAccessException e){
+            System.out.println("Illegal access problem.");
         }
-                
+        catch(InstantiationException e){
+            System.out.println("Instantiation problem.");
+        }
+        catch(InvocationTargetException e){
+            System.out.println("Invocation Target problem");
+        }
+              */  
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -229,6 +302,52 @@ public class FuntionalTestForm extends javax.swing.JFrame {
             System.out.println(ex);
         } 
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        Object o;
+        if(ca[a].getSimpleName() == "int"){
+            
+            o = Integer.parseInt(jTextField2.getText());
+        }
+        else{
+            o = ca[a].cast(jTextField2.getText());
+        }
+        
+        oa[a] = o;
+        
+        a++;
+       
+        if(a == con.getParameterCount()){
+            
+            jLabel4.setVisible(false);
+            jLabel5.setVisible(false);
+            jLabel5.setText(" ");
+            jTextField2.setVisible(false);
+            jTextField2.setText(" ");
+            jButton3.setVisible(false);
+            
+             
+            Class c1 = mjp.getMJPClass();
+            try {
+                object = c1.cast(con.newInstance(oa));
+            } catch (InstantiationException ex) {
+                Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvocationTargetException ex) {
+                Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            a = 0;
+        }
+        else{
+            jLabel5.setText(ca[a].getSimpleName());
+            jTextField2.setText("");
+           
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -264,13 +383,31 @@ public class FuntionalTestForm extends javax.swing.JFrame {
             }
         });
     }
+    
+    public Object[] getVariables(Constructor con){
+        int i = con.getParameterCount();
+        
+        Object[] oa = new Object[i];
+        
+        Class[] ca = con.getParameterTypes();
+        
+        jLabel4.setVisible(true);
+        jLabel5.setVisible(true);
+        jTextField2.setVisible(true);
+        jButton3.setVisible(true);
+        
+        return oa;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -278,5 +415,6 @@ public class FuntionalTestForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
