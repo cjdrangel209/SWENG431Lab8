@@ -2,14 +2,19 @@
 package lab8;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -17,13 +22,17 @@ import java.util.logging.Logger;
  */
 public class FuntionalTestForm extends javax.swing.JFrame {
 
-    public String value;
+    String value;
     MyJavap mjp = new MyJavap();
     Object object;
     Constructor con;
     Object[] oa = null;
     Class[] ca = null;
     int a = 0;
+    Method method;
+    Class[] ma = null;
+    Object[] oa2 = null;
+    
     
     /**
      * Creates new form FuntionalTestForm
@@ -63,6 +72,7 @@ public class FuntionalTestForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +126,13 @@ public class FuntionalTestForm extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Open Class From File");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,23 +162,24 @@ public class FuntionalTestForm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addGap(78, 78, 78)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jButton3)))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addGap(78, 78, 78)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton3)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(110, 110, 110))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,8 +187,9 @@ public class FuntionalTestForm extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jButton1)
@@ -214,6 +233,7 @@ public class FuntionalTestForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        value = "constructor";
         int i = jList1.getSelectedIndex();
         con = mjp.getConstructor(i);                
         
@@ -229,109 +249,20 @@ public class FuntionalTestForm extends javax.swing.JFrame {
         jButton3.setVisible(true);
         
         oa = new Object[j];
-        /*
-        int k = 0;            
-        for(Class c: ca){
-            
-            /*
-            ConstructorFieldsForm cff = new ConstructorFieldsForm(c.getSimpleName(), this);
-            cff.setVisible(true);
-            
-              
-            jLabel5.setText(c.getSimpleName());
-           
-            
-                      
-            String val = value;
-            oa[k] = c.cast(val);
-            k++;
-            
-        }        
-        /* 
-        try {
-                this.wait();
-            } catch (InterruptedException ex) {
-                System.out.println("Interrupted Exception");
-            }
-        
-        
-       
-        
-        Class c1 = mjp.getMJPClass();
-        try{
-            object = c1.cast(con.newInstance(oa));
-        }
-        catch(IllegalArgumentException e){
-            System.out.println("This is the problem.");
-        }
-        catch(IllegalAccessException e){
-            System.out.println("Illegal access problem.");
-        }
-        catch(InstantiationException e){
-            System.out.println("Instantiation problem.");
-        }
-        catch(InvocationTargetException e){
-            System.out.println("Invocation Target problem");
-        }
-              */  
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        value = "method";
         int i = jList2.getSelectedIndex();
         
-        Method method = mjp.getMethod(i);
-        Class[] ca = method.getParameterTypes();
+        method = mjp.getMethod(i);
+        ma = method.getParameterTypes();
         
-        int j = 0;
-        for(Class c: ca){
-            j++;
-        }
+        int j = method.getParameterCount();
         
-        Object[] oa = new Object[j];
-        int k = 0;
-        for(Class c: ca){
-            ConstructorFieldsForm cff = new ConstructorFieldsForm(c.getSimpleName(),this);
-            cff.setVisible(true);
-            String val = value;
-            oa[k] = c.cast(val);
-        }
-        
-        try {
-            jTextArea3.setText(method.invoke((Object)object, oa).toString());
-        } catch (Exception ex) {
-            System.out.println(ex);
-        } 
-    }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        Object o;
-        if(ca[a].getSimpleName() == "int"){
-            
-            o = Integer.parseInt(jTextField2.getText());
-        }
-        else{
-            o = ca[a].cast(jTextField2.getText());
-        }
-        
-        oa[a] = o;
-        
-        a++;
-       
-        if(a == con.getParameterCount()){
-            
-            jLabel4.setVisible(false);
-            jLabel5.setVisible(false);
-            jLabel5.setText(" ");
-            jTextField2.setVisible(false);
-            jTextField2.setText(" ");
-            jButton3.setVisible(false);
-            
-             
-            Class c1 = mjp.getMJPClass();
+        if(j == 0){
             try {
-                object = c1.cast(con.newInstance(oa));
-            } catch (InstantiationException ex) {
-                Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                jTextArea3.setText(method.invoke(object, ma).toString());
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalArgumentException ex) {
@@ -339,15 +270,156 @@ public class FuntionalTestForm extends javax.swing.JFrame {
             } catch (InvocationTargetException ex) {
                 Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            a = 0;
         }
-        else{
-            jLabel5.setText(ca[a].getSimpleName());
-            jTextField2.setText("");
-           
+        else if(j > 0){
+            jLabel4.setVisible(true);
+            jLabel5.setVisible(true);
+            jTextField2.setVisible(true);
+            jButton3.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        if (value == "constructor"){
+            Object o;
+            if(ca[a].getSimpleName() == "int"){
+
+                o = Integer.parseInt(jTextField2.getText());
+            }
+            else if(ca[a].getSimpleName() == "double"){
+                o = Double.parseDouble(jTextField2.getText());
+            }
+            else{
+                o = ca[a].cast(jTextField2.getText());
+            }
+
+            oa[a] = o;
+
+            a++;
+
+            if(a == con.getParameterCount()){
+
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel5.setText(" ");
+                jTextField2.setVisible(false);
+                jTextField2.setText(" ");
+                jButton3.setVisible(false);
+
+
+                Class c1 = mjp.getMJPClass();
+                try {
+                    object = c1.cast(con.newInstance(oa));
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalArgumentException ex) {
+                    Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvocationTargetException ex) {
+                    Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+                a = 0;
+            }
+            else{
+                jLabel5.setText(ca[a].getSimpleName());
+                jTextField2.setText("");
+
+            }
+        }
+        else if(value == "method"){
+            Object o;
+            if(ma[a].getSimpleName() == "int"){
+
+                o = Integer.parseInt(jTextField2.getText());
+            }
+            else if(ma[a].getSimpleName() == "double"){
+                o = Double.parseDouble(jTextField2.getText());
+            }
+            else{
+                o = ma[a].cast(jTextField2.getText());
+            }
+
+            oa2[a] = o;
+
+            a++;
+
+            if(a == method.getParameterCount()){
+
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel5.setText(" ");
+                jTextField2.setVisible(false);
+                jTextField2.setText(" ");
+                jButton3.setVisible(false);
+
+
+                try {
+                    jTextArea3.setText(method.invoke(object, ma).toString());
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalArgumentException ex) {
+                    Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvocationTargetException ex) {
+                    Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+                a = 0;
+            }
+            else{
+                jLabel5.setText(ma[a].getSimpleName());
+                jTextField2.setText("");
+
+            }
         }
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        final JFileChooser fc = new JFileChooser();
+        boolean done = false;
+        int j = 1;
+        String className;
+        
+        int returnVal = fc.showOpenDialog(null);
+        
+        File f = fc.getSelectedFile();
+        File f1 = f;
+        String filePath = f.toString();
+        String currentPath = filePath;
+        
+        do{
+            for(int k = 0; k < j; k++){
+                f1 = f1.getParentFile();
+            }
+            
+            if(j == 1){
+                int beginIndex = filePath.lastIndexOf('\\');
+                className = filePath.substring(beginIndex + 1, filePath.length()-7);
+                currentPath = filePath.substring(0, beginIndex -1);
+            }
+            else{
+                int beginIndex = filePath.lastIndexOf('\\');
+                className = currentPath.substring(beginIndex + 1);
+                currentPath = currentPath.substring(0, beginIndex -1);
+            }
+            
+            try {
+                URL[] urls = {f1.toURI().toURL()};
+                URLClassLoader ucl = new URLClassLoader(urls);
+                Class c = Class.forName(className, true, ucl);
+                jTextField1.setText(c.toString());
+                done = true;
+            } catch (MalformedURLException ex) {
+                j++;
+                Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FuntionalTestForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }while(!done);
+
+    }//GEN-LAST:event_jButton4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -383,26 +455,12 @@ public class FuntionalTestForm extends javax.swing.JFrame {
             }
         });
     }
-    
-    public Object[] getVariables(Constructor con){
-        int i = con.getParameterCount();
-        
-        Object[] oa = new Object[i];
-        
-        Class[] ca = con.getParameterTypes();
-        
-        jLabel4.setVisible(true);
-        jLabel5.setVisible(true);
-        jTextField2.setVisible(true);
-        jButton3.setVisible(true);
-        
-        return oa;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

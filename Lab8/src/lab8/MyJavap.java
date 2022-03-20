@@ -19,7 +19,6 @@ class MyJavap {
     
     public void setClass(String str) throws ClassNotFoundException{
         c = Class.forName(str);
-        //cd.printSkeleton(c);
     }
     
     public Class getMJPClass(){
